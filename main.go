@@ -26,11 +26,11 @@ func main(){
 
 	for {
 		fmt.Println("try to fetch key/value:")
-		var key string
-		var value uint32
+		var key uint32
+		var value ebpf.Map
 		entries := m.Iterate()
 		for entries.Next(&key, &value) {
-			fmt.Printf("key: %s, value: %d\n", key, value)
+			fmt.Printf("key: %v, value: %v\n", key, value)
 		}
 
 		time.Sleep(time.Second)

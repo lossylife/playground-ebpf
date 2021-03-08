@@ -7,6 +7,7 @@ import(
 	"time"
 )
 
+
 func main(){
 	var mapPath = flag.String("p", "/sys/fs/bpf/eth0/test", "help message for flag n")
 	flag.Parse()
@@ -27,7 +28,7 @@ func main(){
 	for {
 		fmt.Println("try to fetch key/value:")
 		var key uint32
-		var value ebpf.Map
+		var value [16]byte
 		entries := m.Iterate()
 		for entries.Next(&key, &value) {
 			fmt.Printf("key: %v, value: %v\n", key, value)

@@ -1,12 +1,25 @@
 package main
 
 import(
+	"bytes"
+	"encoding/binary"
 	"flag"
 	"fmt"
 	"github.com/cilium/ebpf"
 	"time"
 )
 
+type PktStatRec struct {
+	RxPackets uint64
+	RxBytes   uint64
+}
+
+func NewPktStatRecFromBin(b []byte) (*PktStatRec, error) {
+	var rec PktStatRec
+	buf := bytes.NewReader(b)
+	err := binary.Read(buf, binary.LittleEndian, &rec)
+	return &rec, err
+}
 
 func main(){
 	var mapPath = flag.String("p", "/sys/fs/bpf/eth0/test", "help message for flag n")
@@ -31,7 +44,10 @@ func main(){
 		value := make([]byte, 16)
 		entries := m.Iterate()
 		for entries.Next(&key, &value) {
-			fmt.Printf("key: %v, value: %v\n", key, value)
+			rec,err := NewPktStatRecFromBin(value)
+			if err == nil {
+				fmt.Printf("key: %v, value: %d pkts, %d bytes\n", key, rec.RxPackets, rec.RxBytes)
+			}
 		}
 
 		time.Sleep(time.Second)

@@ -16,7 +16,13 @@ func main(){
 		fmt.Printf("load pinned map failed, ", err)
 		return
 	}
-	fmt.Println("load pinned map success: ", *mapPath)
+
+	info,err := m.Info()
+	if err != nil {
+		fmt.Printf("get map info failed, ", err)
+		return
+	}
+	fmt.Println("load pinned map success: ", *mapPath, "\n", info)
 
 	for {
 		fmt.Println("try to fetch key/value:")

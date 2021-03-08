@@ -16,9 +16,10 @@ func main(){
 		fmt.Printf("load pinned map failed, ", err)
 		return
 	}
-
+	fmt.Println("load pinned map success: ", *mapPath)
 
 	for {
+		fmt.Println("try to fetch key/value:")
 		var key string
 		var value uint32
 		entries := m.Iterate()

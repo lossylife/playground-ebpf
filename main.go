@@ -28,7 +28,7 @@ func main(){
 	for {
 		fmt.Println("try to fetch key/value:")
 		var key uint32
-		var value [16]byte
+		value := make([]byte, 16)
 		entries := m.Iterate()
 		for entries.Next(&key, &value) {
 			fmt.Printf("key: %v, value: %v\n", key, value)

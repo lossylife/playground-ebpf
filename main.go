@@ -43,7 +43,7 @@ func main(){
 		var key uint32
 		value := make([]byte, 16)
 		entries := m.Iterate()
-		for entries.Next(&key, &value) {
+		for entries.Next(&key, value) {
 			rec,err := NewPktStatRecFromBin(value)
 			if err == nil {
 				fmt.Printf("key: %v, value: %d pkts, %d bytes\n", key, rec.RxPackets, rec.RxBytes)

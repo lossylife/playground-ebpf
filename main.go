@@ -51,7 +51,10 @@ func main(){
 				fmt.Printf("parse result failed, %v\n", err)
 			}
 			*/
-			fmt.Printf("key: %v, value: %d pkts, %d bytes\n", key, value[0].RxPackets, value[0].RxBytes)
+			fmt.Printf("key: %v, value: %d pkts, %d bytes\n",
+				key,
+				value[0].RxPackets + value[1].RxPackets + value[2].RxPackets + value[3].RxPackets,
+				value[0].RxBytes + value[1].RxBytes + value[2].RxBytes + value[3].RxBytes)
 		}
 
 		time.Sleep(time.Second)

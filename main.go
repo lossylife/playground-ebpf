@@ -44,6 +44,7 @@ func main(){
 		for entries.Next(&key, &value) {
 			fmt.Printf("key: %v, value: %d pkts, %d bytes\n", key, value.RxPackets, value.RxBytes)
 		}
+		fmt.Printf("any errors: %v\n", entries.Err())
 
 		time.Sleep(time.Second)
 	}

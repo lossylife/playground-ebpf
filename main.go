@@ -42,11 +42,15 @@ func main(){
 		fmt.Println("try to fetch key/value:")
 		var key uint32
 		value := make([]byte, 16)
+		fmt.Printf("size of value: %d", len(value))
 		entries := m.Iterate()
 		for entries.Next(&key, value) {
+			fmt.Printf("size of value: %d", len(value))
 			rec,err := NewPktStatRecFromBin(value)
 			if err == nil {
 				fmt.Printf("key: %v, value: %d pkts, %d bytes\n", key, rec.RxPackets, rec.RxBytes)
+			}else{
+				fmt.Printf("parse result failed, %v", err)
 			}
 		}
 

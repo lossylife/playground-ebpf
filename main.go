@@ -44,7 +44,7 @@ func main(){
 		value := make([]byte, 16)
 		fmt.Printf("size of value: %d", len(value))
 		entries := m.Iterate()
-		for entries.Next(&key, value) {
+		for entries.Next(&key, &value) {
 			fmt.Printf("size of value: %d", len(value))
 			rec,err := NewPktStatRecFromBin(value)
 			if err == nil {

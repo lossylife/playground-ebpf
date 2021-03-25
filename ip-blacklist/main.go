@@ -38,8 +38,19 @@ func main() {
 		return
 	}
 
-	for i:=0; i<1000*1000; i++ {
-		m.Put(i, 1)
+	var i uint32
+	i = 1057299884
+	err = m.Put(i, uint8(1))
+	if err != nil {
+		fmt.Printf("put key failed, i = %d, err = %+v\n", i, err)
+		return
+	}
+	for i=0; i<1000*1000; i++ {
+		err = m.Put(i, uint8(1))
+		if err != nil {
+			fmt.Printf("put key failed, i = %d, err = %+v\n", i, err)
+			return
+		}
 	}
 	fmt.Printf("load bpf program success\n")
 }

@@ -7,11 +7,10 @@ import (
 	"github.com/vishvananda/netlink"
 )
 
-func main(){
+func main() {
 	var filePath = flag.String("f", "./bpf.o", "bpf programe file")
 	var ifName = flag.String("i", "lo", "network interface name")
 	flag.Parse()
-
 
 	collection, err := ebpf.LoadCollection(*filePath)
 	if err != nil {
@@ -33,5 +32,14 @@ func main(){
 		}
 	}
 
+	m, ok := collection.Maps["xdp_ip_blacklist_map"]
+	if !ok {
+		fmt.Printf("load bpf failed, can not find the map")
+		return
+	}
+
+	for i:=0; i<1000*1000; i++ {
+		m.Put(i, 1)
+	}
 	fmt.Printf("load bpf program success\n")
 }
